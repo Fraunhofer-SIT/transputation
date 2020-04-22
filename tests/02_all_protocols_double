@@ -1,0 +1,28 @@
+#!/bin/sh
+
+server=./src/test_server_double
+client=./src/test_client_double
+
+mainpid=$$
+(sleep 5; echo "Timeout."; kill $mainpid) &
+watchdog=$!
+
+error() {
+    echo $1
+    kill $watchdog
+    exit 1
+}
+
+[ -f $server ] || error "Cannot find server '${server}'."
+[ -f $client ] || error "Cannot find client '${client}'."
+
+for protocol in UDP TCP UDT
+do
+    printf "Testing (Double) ${protocol}..."
+    $server 127.0.0.1 $protocol >/dev/null 2>/dev/null &
+    sleep 0.2
+    $client 127.0.0.1 $protocol 3000 >/dev/null 2>/dev/null && \
+        echo succeeded. || error "failed."
+done
+
+kill $watchdog
