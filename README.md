@@ -2,6 +2,8 @@
 
 Transputation allows secure computation researchers to focus on the protocol details without worrying about the networking aspects of the implementation.
 
+**This code is provided as an experimental implementation. We cannot guarantee security or correctness**
+
 ## Getting Started
 
 ### Compiling
@@ -84,6 +86,10 @@ int main(int argc, char *argv[]) {
 ```
 
 Compile with `c++ -o server server.cc -ltransputation -lpthread`
+
+## Example uses
+
+We made an experimental fork of libscapi using the transputation framework. It can be found at [https://github.com/Fraunhofer-SIT/transputation_libscapi](https://github.com/Fraunhofer-SIT/transputation_libscapi)
 
 ## License
 
